@@ -8,7 +8,7 @@ export async function middleware(req) {
 
   // Headers for CORS
   const headers = new Headers();
-  headers.set("Access-Control-Allow-Origin", "*"); // production me "*" ki jagah frontend domain
+  headers.set("Access-Control-Allow-Origin", "https://mern-ecommese-r.vercel.app/"); // production me "*" ki jagah frontend domain
   headers.set("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
   headers.set("Access-Control-Allow-Headers", "Content-Type, Authorization");
 
