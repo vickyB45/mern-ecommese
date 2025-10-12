@@ -12,6 +12,7 @@ import { keepPreviousData, useInfiniteQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import ModalMediaBlock from "./ModalMediaBlock";
 import { showToast } from "@/lib/showToast";
+import { Loader2 } from "lucide-react";
 
 const MediaModel = ({
   open,
@@ -20,8 +21,7 @@ const MediaModel = ({
   setSelectedMedia,
   isMultiple,
 }) => {
-
-  const [previoslySeleted,setPrevioslySeleted] = useState([])
+  const [previoslySeleted, setPrevioslySeleted] = useState([]);
 
   const fetchMedia = async (page) => {
     const { data: response } = await axios.get(
@@ -30,40 +30,45 @@ const MediaModel = ({
     return response;
   };
 
-
-  
-  const { isPending, isError,error,data,isFetching,fetchNextPage, hasNextPage } = useInfiniteQuery({
+  const {
+    isPending,
+    isError,
+    error,
+    data,
+    isFetching,
+    fetchNextPage,
+    hasNextPage,
+  } = useInfiniteQuery({
     queryKey: ["MediaModal"],
-    queryFn: async({ pageParam }) => await fetchMedia(pageParam),
-    placeholderData:keepPreviousData,
-    initialPageParam:0,
-    getNextPageParam:(lastPage,allPages)=>{
-      const nextPage = allPages.length
-      return lastPage.hasMore ? nextPage : undefined
-    }
-
+    queryFn: async ({ pageParam }) => await fetchMedia(pageParam),
+    placeholderData: keepPreviousData,
+    initialPageParam: 0,
+    getNextPageParam: (lastPage, allPages) => {
+      const nextPage = allPages.length;
+      return lastPage.hasMore ? nextPage : undefined;
+    },
   });
 
   // Close dialog
-  const handleClose = () =>{
-    setSelectedMedia(previoslySeleted)
-     setOpen(false)
+  const handleClose = () => {
+    setSelectedMedia(previoslySeleted);
+    setOpen(false);
   };
 
   // Clear selected media
   const handleClear = () => {
-    setSelectedMedia([])
-    setPrevioslySeleted([])
-    showToast({type:"success", message:"Media Selection Cleared"})
+    setSelectedMedia([]);
+    setPrevioslySeleted([]);
+    showToast({ type: "success", message: "Media Selection Cleared" });
   };
 
   // Select media (implement your logic)
   const handleSelect = () => {
-    if(selectedMedia.length <=0){
-      return showToast({type:"error", message:"Please select a media"})
+    if (selectedMedia.length <= 0) {
+      return showToast({ type: "error", message: "Please select a media" });
     }
-    setPrevioslySeleted(selectedMedia)
-    setOpen(false)
+    setPrevioslySeleted(selectedMedia);
+    setOpen(false);
   };
 
   return (
@@ -82,37 +87,61 @@ const MediaModel = ({
 
           {/* Body */}
           <div className="h-[calc(100%-80px)] overflow-auto py-2">
-            {
-              isPending ? (
-                  <div className="h-full flex justify-center items-center">
-                    <Image src="/assets/images/loading.svg" alt="loading" height={80} width={80}/>
+            {isPending ? (
+              <div className="h-full flex justify-center items-center">
+                <Image
+                  src="/assets/images/loading.svg"
+                  alt="loading"
+                  height={80}
+                  width={80}
+                />
+              </div>
+            ) : isError ? (
+              <div className="h-full flex justify-center items-center text-red-500">
+                <span>{error.message}</span>
+              </div>
+            ) : (
+              <>
+                <div className="grid grid-cols-3 md:grid-cols-6 gap-2 ">
+                  {data?.pages?.map((page, index) => (
+                    <React.Fragment key={index}>
+                      {page?.mediaData?.map((media) => (
+                        <ModalMediaBlock
+                          key={media._id}
+                          media={media}
+                          selectedMedia={selectedMedia}
+                          setSelectedMedia={setSelectedMedia}
+                          isMultiple={isMultiple}
+                        />
+                      ))}
+                    </React.Fragment>
+                  ))}
+                </div>
+
+                {hasNextPage ? (
+                  <div className="flex justify-center py-5">
+                    <button
+                      onClick={() => fetchNextPage()}
+                      disabled={isFetching} // prevent multiple clicks
+                      className="flex items-center gap-2 px-4 py-2 rounded-md bg-purple-500 border cursor-pointer hover:bg-purple-600 disabled:opacity-60"
+                    >
+                      {isFetching ? (
+                        <>
+                          <Loader2 className="animate-spin h-4 w-4 text-gray-600" />
+                          <span>Loading...</span>
+                        </>
+                      ) : (
+                        "Load More"
+                      )}
+                    </button>
                   </div>
-              ):(
-                isError ? (
-                  <div className="h-full flex justify-center items-center text-red-500">
-                    <span>{error.message}</span>
-                  </div>
-                ):(
-                <>
-                  <div className="grid grid-cols-3 md:grid-cols-6 gap-2 ">
-                      {data?.pages?.map((page, index) => (
-                  <React.Fragment key={index}>
-                    {page?.mediaData?.map((media) => (
-                      <ModalMediaBlock 
-                      key={media._id}
-                      media={media}
-                      selectedMedia={selectedMedia}
-                      setSelectedMedia={setSelectedMedia}
-                      isMultiple={isMultiple}
-                      />
-                    ))}
-                  </React.Fragment>
-                ))}
-                  </div>
-                </>
-                )
-              )
-            }
+                ) : (
+                  <p className="text-black py-5 dark:text-white text-center">
+                    Nothing more to load.
+                  </p>
+                )}
+              </>
+            )}
           </div>
 
           {/* Footer Buttons */}
