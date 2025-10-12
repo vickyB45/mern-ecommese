@@ -44,7 +44,6 @@ const DataTable = ({
   const [rowSelection, setRowselection] = useState({});
 
   const deleteMutation = useDeleteMutation(queryKey, deleteEndpoint);
-  console.log(queryKey)
 
   const handleDelete = (selectedMedia, deleteType) => {
     const c = confirm(
