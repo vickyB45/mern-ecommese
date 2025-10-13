@@ -15,7 +15,6 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import RestoreFromTrashIcon from "@mui/icons-material/RestoreFromTrash";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import useDeleteMutation from "@/hooks/useDeleteMutation";
-import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import { Button } from "@/components/ui/button";
 import { showToast } from "@/lib/showToast";
 import { download, generateCsv, mkConfig } from "export-to-csv";

@@ -1,8 +1,11 @@
+import MainSlider from '@/components/Aplication/website/MainSlider'
 import React from 'react'
 
 const Home = () => {
   return (
-    <div>Home</div>
+    <section>
+      <MainSlider />
+    </section>
   )
 }
 
