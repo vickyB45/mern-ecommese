@@ -96,7 +96,7 @@ const Footer = () => {
 
       {/* Bottom Bar */}
       <motion.div
-        className="border-t border-gray-200 mt-10 pt-6 text-center text-gray-500 text-sm"
+        className=" mt-10 pt-6 text-center text-gray-500 text-sm"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ delay: 0.2, duration: 0.6 }}

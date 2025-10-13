@@ -5,7 +5,6 @@ import ProductModel from "@/models/product.model";
 import { NextResponse } from "next/server";
 
 export async function GET(req) {
-  console.log("COOKIE IN REQUEST:", req.cookies.get("access_token"));
 
   try {
     // Authentication check
