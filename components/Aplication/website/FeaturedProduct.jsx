@@ -10,7 +10,7 @@ const FeaturedProduct = async({category,title,tag}) => {
 const { data: productData } = await axios.get(
   `${process.env.NEXT_PUBLIC_API_BASE_URL}/product/get-featured-product?category=${collection}`
 );
-
+console.log(productData.data)
     if(!productData ){
         return null
     }
