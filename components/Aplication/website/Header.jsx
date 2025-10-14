@@ -23,7 +23,7 @@ const Header = () => {
   return (
     <div>
       {/* Header */}
-      <div className="bg-white border-b lg:px-22 xl:px-32 px-4">
+      <div className="bg-white sti border-b lg:px-22 xl:px-32 px-4">
         <div className="flex justify-between items-center lg:py-4 py-2">
           <Link href={WEBSITE_HOME}>
             <Image

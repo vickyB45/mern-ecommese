@@ -4,15 +4,15 @@ import { motion } from "framer-motion";
 const cards = [
   {
     img: "/assets/images/banner1.png",
-    heading: "UP TO 70%",
-    btnText: "SHOP NOW",
+    heading: "Up To 70%",
+    btnText: "Shop Now",
     btnLink: "#shop",
     delay: 0,
   },
   {
       img: "/assets/images/banner2.png",
-    heading: "NEW ARRIVAL",
-    btnText: "EXPLORE NOW",
+    heading: "New Arrival",
+    btnText: "Explore More",
     btnLink: "#explore",
     delay: 0.2,
   },
@@ -39,9 +39,9 @@ const Banner = () => {
             />
             <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-all duration-700"></div>
 
-            <div className="absolute hidden md:block left-6 bottom-6 text-white space-y-3">
+            <div className="absolute  left-6 bottom-6 text-white space-y-3">
               <motion.h3
-                className="text-3xl font-extrabold"
+                className="md:text-5xl text-3xl font-extrabold"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: card.delay + 0.2 }}

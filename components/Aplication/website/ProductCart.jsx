@@ -7,7 +7,7 @@ const ProductCard = ({ product, tag }) => {
       <Link href={""}>
         {/* Image Section */}
         <div className="relative">
-          <div className="sm:h-[300px] lg:h-[350px] overflow-hidden">
+          <div className="h-[200px] lg:h-[350px] overflow-hidden">
             <img
               src={product.media?.[0]?.secure_url}
               className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
@@ -38,7 +38,7 @@ const ProductCard = ({ product, tag }) => {
           </h3>
 
           <div className="flex items-center space-x-2 mb-1">
-            <span className="text-gray-900 font-semibold sm:text-[15px] text-[13px]">
+            <span className="text-gray-900 font-semibold sm:text-[17px] text-[15px]">
               ₹{product.sellingPrice}.00
             </span>
             <span className="text-gray-400 line-through sm:text-[13px] text-[11px]">

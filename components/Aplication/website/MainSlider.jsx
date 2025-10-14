@@ -54,14 +54,14 @@ const MainSlider = () => {
   };
 
   return (
-    <div className="w-full overflow-hidden relative">
+    <div className="w-full overflow-hidden  relative">
       <Slider {...settings}>
         {images.map((img, idx) => (
-          <div key={idx}>
+          <div key={idx} className="cursor-grab active:cursor-grabbing">
             <img
               src={img}
               alt={`slide-${idx}`}
-              className="w-full h-56 lg:h-[400px] object-cover"
+              className="w-full h-56 lg:h-[450px] object-cover"
             />
           </div>
         ))}

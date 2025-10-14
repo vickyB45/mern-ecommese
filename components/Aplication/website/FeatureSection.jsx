@@ -26,7 +26,7 @@ const FeatureStrip = () => {
   ];
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-r  pt-6">
+    <section className="relative overflow-hidden bg-gradient-to-r  py-6">
       {/* rotated background strip */}
 
       {/* content */}
