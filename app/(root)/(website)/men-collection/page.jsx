@@ -1,6 +1,6 @@
 'use client'
 import Filter from '@/components/Aplication/website/Filter'
-// import Sorting from '@/components/Aplication/website/Sorting'
+import Sorting from '@/components/Aplication/website/Sorting'
 import WebsiteBreadcrumb from '@/components/Aplication/website/WebsiteBreadcrumb'
 import {  WEBSITE_MEN_COLLECTION } from '@/routes/WebsiteRoute'
 import React, { useState } from 'react'
@@ -27,8 +27,8 @@ const ShopPage = () => {
             <Filter />
           </div>
         </div>
-        <div className='w-[100%-18rem]'>
-          {/* <Sorting  limit={limit} setLimit={setLimit}/> */}
+        <div className='w-[calc(100%-18rem)]'>
+          <Sorting  limit={limit} setLimit={setLimit}/>
         </div>
        </section>
     </div>

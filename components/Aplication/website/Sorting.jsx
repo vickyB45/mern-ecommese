@@ -7,6 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { sortingFilter } from "@/lib/utils";
 
 const Sorting = ({
   limit,
@@ -39,9 +40,11 @@ const Sorting = ({
           <SelectValue placeholder="Default Sorting" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="light">Light</SelectItem>
-          <SelectItem value="dark">Dark</SelectItem>
-          <SelectItem value="system">System</SelectItem>
+          {sortingFilter.map((option)=>(
+            <SelectItem key={option.value} value={option.value}>
+              {option.label}
+            </SelectItem>
+          ))}
         </SelectContent>
       </Select>
     </div>
