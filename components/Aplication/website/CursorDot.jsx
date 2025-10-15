@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const CursorDot = () => {
@@ -8,37 +8,40 @@ const CursorDot = () => {
   const [isHover, setIsHover] = useState(false);
 
   useEffect(() => {
-    const moveCursor = (e) => setPosition({ x: e.clientX, y: e.clientY });
-    const hoverElements = document.querySelectorAll("button, a, .hover-cursor");
+    const handleMouseMove = (e) => setPosition({ x: e.clientX, y: e.clientY });
+    const hoverTargets = document.querySelectorAll("button, a, .hover-cursor");
 
-    const handleMouseEnter = () => setIsHover(true);
-    const handleMouseLeave = () => setIsHover(false);
+    const handleHoverEnter = () => setIsHover(true);
+    const handleHoverLeave = () => setIsHover(false);
 
-    hoverElements.forEach((el) => {
-      el.addEventListener("mouseenter", handleMouseEnter);
-      el.addEventListener("mouseleave", handleMouseLeave);
+    hoverTargets.forEach((el) => {
+      el.addEventListener("mouseenter", handleHoverEnter);
+      el.addEventListener("mouseleave", handleHoverLeave);
     });
 
-    window.addEventListener("mousemove", moveCursor);
+    window.addEventListener("mousemove", handleMouseMove);
 
     return () => {
-      window.removeEventListener("mousemove", moveCursor);
-      hoverElements.forEach((el) => {
-        el.removeEventListener("mouseenter", handleMouseEnter);
-        el.removeEventListener("mouseleave", handleMouseLeave);
+      window.removeEventListener("mousemove", handleMouseMove);
+      hoverTargets.forEach((el) => {
+        el.removeEventListener("mouseenter", handleHoverEnter);
+        el.removeEventListener("mouseleave", handleHoverLeave);
       });
     };
   }, []);
+
+  const size = isHover ? 48 : 8;
+  const offset = size / 2;
 
   return (
     <AnimatePresence>
       <motion.div
         className="fixed hidden md:block pointer-events-none z-50 rounded-full"
         animate={{
-          x: position.x - (isHover ? 24 : 8),
-          y: position.y - (isHover ? 24 : 8),
-          width: isHover ? 48 : 16,
-          height: isHover ? 48 : 16,
+          x: position.x - offset,
+          y: position.y - offset,
+          width: size,
+          height: size,
           backgroundColor: "rgba(0,0,0,1)",
           opacity: isHover ? 0.3 : 1,
           scale: isHover ? 1.2 : 1,

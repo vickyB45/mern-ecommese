@@ -3,6 +3,7 @@ import {
   USER_DASHBOARD,
   WEBSITE_HOME,
   WEBSITE_LOGIN,
+  WEBSITE_MEN_COLLECTION,
 } from "@/routes/WebsiteRoute";
 import Image from "next/image";
 import Link from "next/link";
@@ -42,7 +43,7 @@ const Header = () => {
               <ul className="flex items-center gap-6">
                 <li>
                   <Link
-                    href={WEBSITE_HOME}
+                    href={WEBSITE_MEN_COLLECTION}
                     className="relative text-lg  text-zinc-700  after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
                   >
                     Men's Collections
