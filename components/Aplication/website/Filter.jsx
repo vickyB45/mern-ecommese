@@ -95,12 +95,12 @@ const Filter = () => {
     priceFilter.maxPrice < 20000;
 
   return (
-    <div className="p-2">
+    <div className="lg:p-2 px-2">
       {isAnyFilterApplied && (
-        <div className="mb-4 text-center">
+        <div className="lg:mb-4 overflow-y-auto text-center">
           <button
             type="button"
-            className=" px-5 py-2 bg-red-500 border border-gray-300 text-white w-full cursor-pointer font-medium hover:bg-red-600 transition"
+            className="  px-5 py-2 bg-red-500 border border-gray-300 text-white w-full cursor-pointer font-medium hover:bg-red-600 transition"
             onClick={removeAllFilters}
           >
             Remove All Filters
@@ -113,16 +113,16 @@ const Filter = () => {
         <AccordionItem value="1">
           <AccordionTrigger className="uppercase text-[17px] hover:no-underline">Categories</AccordionTrigger>
           <AccordionContent>
-            <div className="max-h-48 overflow-auto">
+            <div className="lg:max-h-48 overflow-auto">
               <ul>
                 {categoryData?.success && categoryData.data.map((category) => (
                   <li key={category._id}>
-                    <label className="flex capitalize mb-3 cursor-pointer select-none items-center space-x-3">
+                    <label className="flex capitalize mb-1 lg:mb-3 cursor-pointer select-none items-center space-x-3">
                       <Checkbox
                         checked={selectedCategory.includes(category.slug)}
                         onCheckedChange={() => handleCategoryFilter(category.slug)}
                       />
-                      <span>{category.name}</span>
+                      <span className="p-0">{category.name}</span>
                     </label>
                   </li>
                 ))}
@@ -135,11 +135,11 @@ const Filter = () => {
         <AccordionItem value="2">
           <AccordionTrigger className="uppercase text-[17px] hover:no-underline">Color</AccordionTrigger>
           <AccordionContent>
-            <div className="max-h-48 overflow-auto">
+            <div className="lg:max-h-48 overflow-auto">
               <ul>
                 {colorData?.success && colorData.data.map((color, index) => (
                   <li key={index}>
-                    <label className="flex capitalize mb-3 cursor-pointer select-none items-center space-x-3">
+                    <label className="flex capitalize mb-1 lg:mb-3 cursor-pointer select-none items-center space-x-3">
                       <Checkbox
                         checked={selectedColor.includes(color)}
                         onCheckedChange={() => handleColorFilter(color)}
@@ -157,11 +157,11 @@ const Filter = () => {
         <AccordionItem value="3">
           <AccordionTrigger className="uppercase text-[17px] hover:no-underline">Size</AccordionTrigger>
           <AccordionContent>
-            <div className="max-h-48 overflow-auto">
+            <div className="lg:max-h-48 overflow-auto">
               <ul>
                 {sizeData?.success && sizeData.data.map((size, index) => (
                   <li key={index}>
-                    <label className="flex capitalize mb-3 cursor-pointer select-none items-center space-x-3">
+                    <label className="flex capitalize mb-1 lg:mb-3 cursor-pointer select-none items-center space-x-3">
                       <Checkbox
                         checked={selectedSize.includes(size)}
                         onCheckedChange={() => handleSizeFilter(size)}
@@ -196,10 +196,10 @@ const Filter = () => {
                 {priceFilter.maxPrice.toLocaleString("en-IN", { style: 'currency', currency: "INR" })}
               </span>
             </div>
-            <div className="mt-2 text-center">
+            <div className="lg:mt-2 text-center">
               <button
                 type="button"
-                className="rounded-full px-4 py-2 bg-primary text-white cursor-pointer"
+                className="rounded-lg px-4 py-2 bg-primary text-white cursor-pointer"
                 onClick={handlePriceFilter}
               >
                 Filter Price

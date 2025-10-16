@@ -8,17 +8,21 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { sortingFilter } from "@/lib/utils";
+import { IoFilter } from "react-icons/io5";
 
 const Sorting = ({
   limit,
   setLimit,
   sorting,
   setSorting,
-  mobileFilterOpen,
-  setMoileFilterOpen,
+  isMobileFilterOpen,
+  setIsMobileFilterOpen,
 }) => {
   return (
     <div className="flex justify-between items-center flex-wrap gap-2 p-4 bg-gray-50">
+      <button  className="px-4 flex justify-between gap-2 text-sm cursor-pointer rounded lg:hidden items-center py-2 bg-primary text-white" type="button" onClick={()=>setIsMobileFilterOpen(!isMobileFilterOpen)}>
+        <IoFilter /> Filter
+      </button>
       <ul className="flex gap-2 items-center">
         <li className="font-semibold mr-3 ">Show</li>
         {[9, 12, 18, 24].map((limitNumber) => (
@@ -35,7 +39,7 @@ const Sorting = ({
           </li>
         ))}
       </ul>
-      <Select>
+      <Select value={sorting} onValueChange = {(value)=>setSorting(value)}>
         <SelectTrigger className="md:w-[180px] bg-white">
           <SelectValue placeholder="Default Sorting" />
         </SelectTrigger>

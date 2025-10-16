@@ -1,21 +1,21 @@
 import React from "react";
 import WebsiteBreadcrumb from "@/components/Aplication/website/WebsiteBreadcrumb";
 // import ProductCard from "@/components/Aplication/website/ProductCard";
-import { WEBSITE_MEN_COLLECTION } from "@/routes/WebsiteRoute";
+import { WEBSITE_ACCESSORIES, WEBSITE_FOOTWARES, WEBSITE_MEN_COLLECTION } from "@/routes/WebsiteRoute";
 import ProductCard from "@/components/Aplication/website/ProductCart";
 
 const breadCrumb = {
-  title: "Men Collections",
+  title: "Accessories Collections",
   links: [
     {
-      label: "Men Collections",
-      href: WEBSITE_MEN_COLLECTION,
+      label: "Accessories",
+      href: WEBSITE_ACCESSORIES,
     },
   ],
 };
 
 const ManCategory = async () => {
-  const category = "mens collection"; // Hardcoded category for now
+  const category = "Accessories collection"; // Hardcoded category for now
   const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
   if (!baseUrl) throw new Error("NEXT_PUBLIC_API_BASE_URL is not defined");

@@ -8,3 +8,13 @@ export const USER_DASHBOARD = '/my-account'
 
 
 export const WEBSITE_MEN_COLLECTION = '/men-collection'
+export const WEBSITE_WOMEN_COLLECTION = '/women-collection'
+export const WEBSITE_FOOTWARES = '/footware'
+export const WEBSITE_ACCESSORIES = '/accessories'
+
+
+
+export const WEBSITE_SHOP = '/shop'
+
+
+

@@ -1,9 +1,13 @@
 "use client";
 import {
   USER_DASHBOARD,
+  WEBSITE_ACCESSORIES,
+  WEBSITE_FOOTWARES,
   WEBSITE_HOME,
   WEBSITE_LOGIN,
   WEBSITE_MEN_COLLECTION,
+  WEBSITE_SHOP,
+  WEBSITE_WOMEN_COLLECTION,
 } from "@/routes/WebsiteRoute";
 import Image from "next/image";
 import Link from "next/link";
@@ -46,20 +50,20 @@ const Header = () => {
                     href={WEBSITE_MEN_COLLECTION}
                     className="relative text-lg  text-zinc-700  after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
                   >
-                    Men's Collections
+                    Men Collections
                   </Link>
                 </li>
                 <li>
                   <Link
-                    href={WEBSITE_HOME}
+                    href={WEBSITE_WOMEN_COLLECTION}
                     className="relative text-lg  text-zinc-700  after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
                   >
-                    Women's Collections
+                    Women Collections
                   </Link>
                 </li>
                 <li>
                   <Link
-                    href={WEBSITE_HOME}
+                    href={WEBSITE_FOOTWARES}
                     className="relative text-lg  text-zinc-700  after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
                   >
                     Footwares
@@ -67,10 +71,18 @@ const Header = () => {
                 </li>
                 <li>
                   <Link
-                    href={WEBSITE_HOME}
+                    href={WEBSITE_ACCESSORIES}
                     className="relative text-lg  text-zinc-700  after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
                   >
                     Accessories
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href={WEBSITE_SHOP}
+                    className="relative text-lg  text-zinc-700  after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+                  >
+                    Shop
                   </Link>
                 </li>
               </ul>
@@ -132,25 +144,25 @@ const Header = () => {
         <ul className="flex flex-col gap-4 p-4">
           <li>
             <Link
-              href={WEBSITE_HOME}
+              href={WEBSITE_MEN_COLLECTION}
               onClick={toggleSidebar}
               className="relative text-lg font-medium text-zinc-700 hover:text-primary after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
             >
-              Men's Collections
+              Men Collections
             </Link>
           </li>
           <li>
             <Link
-              href={WEBSITE_HOME}
+              href={WEBSITE_WOMEN_COLLECTION}
               onClick={toggleSidebar}
               className="relative text-lg font-medium text-zinc-700 hover:text-primary after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
             >
-              Women's Collections
+              Women Collections
             </Link>
           </li>
           <li>
             <Link
-              href={WEBSITE_HOME}
+              href={WEBSITE_FOOTWARES}
               onClick={toggleSidebar}
               className="relative text-lg font-medium text-zinc-700 hover:text-primary after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
             >
@@ -159,11 +171,20 @@ const Header = () => {
           </li>
           <li>
             <Link
-              href={WEBSITE_HOME}
+              href={WEBSITE_ACCESSORIES}
               onClick={toggleSidebar}
               className="relative text-lg font-medium text-zinc-700 hover:text-primary after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
             >
               Accessories
+            </Link>
+          </li>
+          <li>
+            <Link
+              href={WEBSITE_SHOP}
+              onClick={toggleSidebar}
+              className="relative text-lg font-medium text-zinc-700 hover:text-primary after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+            >
+              Shop
             </Link>
           </li>
         </ul>

@@ -4,7 +4,6 @@ import React from 'react'
 
 
 const WebsiteBreadcrumb = ({props}) => {
-    console.log(props)
   return (
     <div className={`py-10 flex justify-center items-center bg-[url('/assets/images/page-title.png')] bg-cover bg-center`}>
         <div>
