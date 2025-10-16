@@ -6,14 +6,13 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import Filter from "@/components/Aplication/website/Filter";
 import Sorting from "@/components/Aplication/website/Sorting";
 import WebsiteBreadcrumb from "@/components/Aplication/website/WebsiteBreadcrumb";
-import { WEBSITE_MEN_COLLECTION, WEBSITE_SHOP } from "@/routes/WebsiteRoute";
+import { WEBSITE_SHOP } from "@/routes/WebsiteRoute";
 
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
-  SheetTrigger,
 } from "@/components/ui/sheet";
 
 import useWindowSize from "@/hooks/useWindowSize";
@@ -69,7 +68,7 @@ const MenCollection = () => {
     isFetchingNextPage,
     status,
   } = useInfiniteQuery({
-    queryKey: ["men-collection", limit, sorting, searchParams],
+    queryKey: ["shop", limit, sorting, searchParams],
     queryFn: fetchProducts,
     initialPageParam: 0,
     getNextPageParam: (lastPage) => lastPage.nextCursor,
@@ -80,6 +79,7 @@ const MenCollection = () => {
 
   // ✅ Intersection Observer for Infinite Scroll
   const loadMoreRef = useRef(null);
+
   useEffect(() => {
     if (!hasNextPage || isFetchingNextPage) return;
     const observer = new IntersectionObserver(
@@ -88,6 +88,7 @@ const MenCollection = () => {
       },
       { threshold: 1 }
     );
+
 
     if (loadMoreRef.current) observer.observe(loadMoreRef.current);
     return () => observer.disconnect();
@@ -147,7 +148,7 @@ const MenCollection = () => {
               </p>
             ) : products.length > 0 ? (
               products.map((product, index) => (
-                <ProductCard key={product?._id || index} product={product} tag="men" />
+                <ProductCard key={ index} product={product} tag="men" />
               ))
             ) : (
               <p>No products found.</p>

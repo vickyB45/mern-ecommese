@@ -38,11 +38,11 @@ const ManCategory = async () => {
       <WebsiteBreadcrumb props={breadCrumb} />
 
       {/* Category Heading */}
-      <div className="px-6 md:px-16 py-10">
+ <div className="px-2 md:px-16 py-10">
 
         {/* Product Grid */}
         {products.length > 0 ? (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:gap-6 gap-2">
             {products.map((product) => (
               <ProductCard key={product._id} product={product} tag={category} />
             ))}

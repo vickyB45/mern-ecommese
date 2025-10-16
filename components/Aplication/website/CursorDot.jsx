@@ -36,7 +36,7 @@ const CursorDot = () => {
   return (
     <AnimatePresence>
       <motion.div
-        className="fixed sm:block hidden pointer-events-none z-50 rounded-full"
+        className="fixed sm:block hidden pointer-events-none z-60 rounded-full"
         animate={{
           x: position.x - offset,
           y: position.y - offset,

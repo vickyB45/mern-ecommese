@@ -10,11 +10,11 @@ export async function GET(req) {
     const searchParams = req.nextUrl.searchParams;
 
     // 🔹 Filters
-    const size = searchParams.get("size");
-    const color = searchParams.get("color");
-    const categorySlug = searchParams.get("category");
-    const minPrice = parseInt(searchParams.get("minPrice")) || null;
-    const maxPrice = parseInt(searchParams.get("maxPrice")) || null;
+    const sizeParam = searchParams.get("size"); // single or comma-separated
+    const colorParam = searchParams.get("color");
+    const categoryParam = searchParams.get("category"); // comma-separated
+    const minPrice = parseInt(searchParams.get("minPrice")) || 0;
+    const maxPrice = parseInt(searchParams.get("maxPrice")) || 100000;
     const search = searchParams.get("q");
 
     // 🔹 Pagination
@@ -33,22 +33,27 @@ export async function GET(req) {
         price_high_low: { sellingPrice: -1 },
       }[sortOption] || { createdAt: -1 };
 
-    // 🔹 Find category ID from slug
-    let categoryId = null;
-    if (categorySlug) {
-      const categoryData = await CategoryModel.findOne({
+    // 🔹 Convert comma-separated params to array
+    const sizes = sizeParam ? sizeParam.split(",") : [];
+    const colors = colorParam ? colorParam.split(",") : [];
+    const categorySlugs = categoryParam ? categoryParam.split(",") : [];
+
+    // 🔹 Find category IDs from slugs
+    let categoryIds = [];
+    if (categorySlugs.length > 0) {
+      const categories = await CategoryModel.find({
         deletedAt: null,
-        slug: categorySlug,
+        slug: { $in: categorySlugs },
       })
         .select("_id")
         .lean();
 
-      if (categoryData) categoryId = categoryData._id;
+      categoryIds = categories.map((c) => c._id);
     }
 
     // 🔹 Match stage
     const matchStage = {};
-    if (categoryId) matchStage.category = categoryId;
+    if (categoryIds.length > 0) matchStage.category = { $in: categoryIds };
     if (search) matchStage.name = { $regex: search, $options: "i" };
 
     // 🔹 Aggregation Pipeline
@@ -61,7 +66,7 @@ export async function GET(req) {
       // Lookup Variants
       {
         $lookup: {
-          from: "product_variants", // ⚠️ Check your actual collection name
+          from: "product_variants",
           localField: "_id",
           foreignField: "product",
           as: "variants",
@@ -70,34 +75,33 @@ export async function GET(req) {
 
       // Filter Variants
       {
-        $addFields: {
-          variants: {
-            $filter: {
-              input: "$variants",
-              as: "variant",
-              cond: {
-                $and: [
-                  size ? { $eq: ["$$variant.size", size] } : { $literal: true },
-                  color
-                    ? { $eq: ["$$variant.color", color] }
-                    : { $literal: true },
-                  ...(minPrice !== null
-                    ? [{ $gte: ["$$variant.sellingPrice", minPrice] }]
-                    : []),
-                  ...(maxPrice !== null
-                    ? [{ $lte: ["$$variant.sellingPrice", maxPrice] }]
-                    : []),
-                ],
-              },
-            },
-          },
+  $addFields: {
+    variants: {
+      $filter: {
+        input: "$variants",
+        as: "variant",
+        cond: {
+          $and: [
+            sizes.length > 0
+              ? { $in: ["$$variant.size", sizes] }
+              : { $literal: true },
+            colors.length > 0
+              ? { $in: ["$$variant.color", colors] }
+              : { $literal: true },
+            ...(minPrice !== null ? [{ $gte: ["$$variant.sellingPrice", minPrice] }] : []),
+            ...(maxPrice !== null ? [{ $lte: ["$$variant.sellingPrice", maxPrice] }] : []),
+          ],
         },
       },
+    },
+  },
+},
+
 
       // Lookup Media
       {
         $lookup: {
-          from: "media", // ⚠️ Change to "medias" if that's your collection
+          from: "media",
           localField: "media",
           foreignField: "_id",
           as: "media",
@@ -144,6 +148,7 @@ export async function GET(req) {
           },
         },
       },
+
     ]);
 
     // 🔹 Pagination logic

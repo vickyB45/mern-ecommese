@@ -1,10 +1,11 @@
+import { WEBSITE_PRODUCT_DETAILS } from "@/routes/WebsiteRoute";
 import Link from "next/link";
 import React from "react";
 
-const ProductCard = ({ product, tag }) => {
+const ProductCard = ({ product }) => {
   return (
     <div className="bg-white cursor-pointer border border-gray-200 overflow-hidden transition-all duration-300 max-w-xs mx-auto hover:shadow-md">
-      <Link href={""}>
+      <Link href={WEBSITE_PRODUCT_DETAILS(product.slug)}>
         {/* Image Section */}
         <div className="relative">
           <div className="h-[200px] lg:h-[350px] overflow-hidden">

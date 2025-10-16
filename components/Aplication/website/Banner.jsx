@@ -3,14 +3,14 @@ import { motion } from "framer-motion";
 
 const cards = [
   {
-    img: "/assets/images/banner1.png",
+    img: "https://res.cloudinary.com/dwpp4trl9/image/upload/v1760597331/uploads/mejotcdsiok708rhckw0.png",
     heading: "Up To 70%",
     btnText: "Shop Now",
     btnLink: "#shop",
     delay: 0,
   },
   {
-      img: "/assets/images/banner2.png",
+      img: "https://res.cloudinary.com/dwpp4trl9/image/upload/v1760597331/uploads/kgomgwakclptcgd0fxgn.png",
     heading: "New Arrival",
     btnText: "Explore More",
     btnLink: "#explore",

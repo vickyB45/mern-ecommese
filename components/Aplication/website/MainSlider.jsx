@@ -6,10 +6,10 @@ import "slick-carousel/slick/slick-theme.css";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 
 const images = [
-  "/assets/images/slider-1.png",
-  "/assets/images/slider-2.png",
-  "/assets/images/slider-3.png",
-  "/assets/images/slider-4.png",
+  "https://res.cloudinary.com/dwpp4trl9/image/upload/v1760597437/uploads/yzzrl6db9z5a6bzlbtw1.png",
+  "https://res.cloudinary.com/dwpp4trl9/image/upload/v1760597436/uploads/btqenipnoyiaftjs6phi.png",
+  "https://res.cloudinary.com/dwpp4trl9/image/upload/v1760597434/uploads/lfwk7ivkqaupjpdnxv5c.png",
+  "https://res.cloudinary.com/dwpp4trl9/image/upload/v1760597433/uploads/f8nqyal1ftfkaizfwntz.png",
 ];
 
 // ✅ Fixed custom arrows

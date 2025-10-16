@@ -12,9 +12,12 @@ export const WEBSITE_WOMEN_COLLECTION = '/women-collection'
 export const WEBSITE_FOOTWARES = '/footware'
 export const WEBSITE_ACCESSORIES = '/accessories'
 
-
-
 export const WEBSITE_SHOP = '/shop'
+
+export const WEBSITE_CART = '/cart'
+
+
+export const WEBSITE_PRODUCT_DETAILS =(slug)=> slug ? `/product/${slug}` : `/product` 
 
 
 

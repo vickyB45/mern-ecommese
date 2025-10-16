@@ -10,14 +10,14 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Slider } from "@/components/ui/slider";
 import { useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { WEBSITE_MEN_COLLECTION } from "@/routes/WebsiteRoute";
+import {  WEBSITE_SHOP } from "@/routes/WebsiteRoute";
 
 const Filter = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
 
   // States for filters
-  const [priceFilter, setPriceFilter] = useState({ minPrice: 0, maxPrice: 20000 });
+  const [priceFilter, setPriceFilter] = useState({ minPrice: 0, maxPrice: 100000 });
   const [selectedCategory, setSelectedCategory] = useState([]);
   const [selectedColor, setSelectedColor] = useState([]);
   const [selectedSize, setSelectedSize] = useState([]);
@@ -35,7 +35,7 @@ const Filter = () => {
     setSelectedSize(params.get("size")?.split(",") || []);
     setPriceFilter({
       minPrice: parseInt(params.get("minPrice") || "0"),
-      maxPrice: parseInt(params.get("maxPrice") || "20000")
+      maxPrice: parseInt(params.get("maxPrice") || "100000")
     });
   }, [searchParams]);
 
@@ -43,7 +43,7 @@ const Filter = () => {
     const params = new URLSearchParams(searchParams.toString());
     if (values.length > 0) params.set(key, values.join(","));
     else params.delete(key);
-    router.push(`${WEBSITE_MEN_COLLECTION}?${params.toString()}`);
+    router.push(`${WEBSITE_SHOP}?${params.toString()}`);
   };
 
   // Handlers for filters
@@ -75,7 +75,7 @@ const Filter = () => {
     const params = new URLSearchParams(searchParams.toString());
     params.set("minPrice", priceFilter.minPrice);
     params.set("maxPrice", priceFilter.maxPrice);
-    router.push(`${WEBSITE_MEN_COLLECTION}?${params.toString()}`);
+    router.push(`${WEBSITE_SHOP}?${params.toString()}`);
   };
 
   const removeAllFilters = () => {
@@ -83,7 +83,7 @@ const Filter = () => {
     setSelectedColor([]);
     setSelectedSize([]);
     setPriceFilter({ minPrice: 0, maxPrice: 20000 });
-    router.push(`${WEBSITE_MEN_COLLECTION}`);
+    router.push(`${WEBSITE_SHOP}`);
   };
 
   // Show Remove All Filters only if any filter is applied
@@ -108,10 +108,10 @@ const Filter = () => {
         </div>
       )}
 
-      <Accordion type="multiple" defaultValue={['1','2','3','4']}>
+      <Accordion type="single"  defaultValue={['1','2','3','4']}>
         {/* Categories */}
         <AccordionItem value="1">
-          <AccordionTrigger className="uppercase text-[17px] hover:no-underline">Categories</AccordionTrigger>
+          <AccordionTrigger className="uppercase md:-10 text-[17px] hover:no-underline">Categories</AccordionTrigger>
           <AccordionContent>
             <div className="lg:max-h-48 overflow-auto">
               <ul>
@@ -182,7 +182,7 @@ const Filter = () => {
             <Slider
               className="mt-3"
               defaultValue={[priceFilter.minPrice, priceFilter.maxPrice]}
-              max={20000}
+              max={100000}
               step={1}
               onValueChange={(value) =>
                 setPriceFilter({ minPrice: value[0], maxPrice: value[1] })
