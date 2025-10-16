@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { Skeleton } from "@/components/ui/skeleton"; // ✅ already present
 
 import {
   Breadcrumb,
@@ -31,12 +32,15 @@ const ProductDetails = ({ product, variant, colors, sizes, reviewCount, similarP
   const [activeImage, setActiveImage] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [like, setLike] = useState(false);
+  const [loading, setLoading] = useState(true);
 
+  // ✅ Simulating loading skeleton until product data available
   useEffect(() => {
-    if (product?.media?.length > 0) {
-      const urls = product.media.map((m) => m.secure_url);
+    if (product && Object.keys(product).length > 0) {
+      const urls = product.media?.map((m) => m.secure_url) || [];
       setThumbnails(urls);
       setActiveImage(urls[0]);
+      setLoading(false);
     }
   }, [product]);
 
@@ -59,6 +63,58 @@ const ProductDetails = ({ product, variant, colors, sizes, reviewCount, similarP
     showToast({ type: "success", message: "Product added into cart" });
   };
 
+  // 🔹 SKELETON UI while loading
+  if (loading) {
+    return (
+      <div className="min-h-screen animate-pulse px-4 lg:px-20 py-10">
+        <div className="mb-6">
+          <Skeleton className="h-5 w-1/3 mb-3" />
+          <Skeleton className="h-4 w-1/5" />
+        </div>
+
+        <div className="lg:flex lg:gap-10">
+          {/* Left Image Skeleton */}
+          <div className="lg:w-1/2">
+            <div className="flex gap-3">
+              <Skeleton className="w-20 h-20 rounded-md" />
+              <Skeleton className="w-20 h-20 rounded-md" />
+              <Skeleton className="w-20 h-20 rounded-md" />
+            </div>
+            <Skeleton className="h-[400px] w-full rounded-xl mt-4" />
+          </div>
+
+          {/* Right Details Skeleton */}
+          <div className="lg:w-1/2 mt-10 lg:mt-0 space-y-4">
+            <Skeleton className="h-6 w-2/3" />
+            <Skeleton className="h-4 w-1/3" />
+            <Skeleton className="h-8 w-1/4" />
+            <Skeleton className="h-20 w-full" />
+            <div className="flex gap-3">
+              <Skeleton className="h-12 w-1/2 rounded-md" />
+              <Skeleton className="h-12 w-1/2 rounded-md" />
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-16">
+          <Skeleton className="h-6 w-1/3 mb-4" />
+          <Skeleton className="h-24 w-full" />
+        </div>
+
+        <div className="mt-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <div key={i} className="border rounded-md p-3">
+              <Skeleton className="h-[200px] w-full rounded-md mb-3" />
+              <Skeleton className="h-4 w-3/4 mb-2" />
+              <Skeleton className="h-4 w-1/2" />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  // ✅ MAIN PRODUCT PAGE AFTER LOAD
   return (
     <div className="min-h-screen">
       {/* Breadcrumb */}
@@ -124,15 +180,12 @@ const ProductDetails = ({ product, variant, colors, sizes, reviewCount, similarP
             )}
             <button
               onClick={() => setLike(!like)}
-              className={`absolute top-4 right-4 p-2 rounded-full shadow-md cursor-pointer transition hover:scale-105 ${
-                like ? "bg-white" : "bg-white"
-              }`}
+              className="absolute top-4 right-4 p-2 rounded-full bg-white shadow-md hover:scale-105 transition"
             >
               {like ? <FaHeart className="text-red-600" size={20} /> : <FaRegHeart className="text-gray-600" size={20} />}
             </button>
           </div>
         </div>
-
         {/* Right: Product Info */}
         <div className="lg:w-1/2">
           {/* Title */}
@@ -152,8 +205,8 @@ const ProductDetails = ({ product, variant, colors, sizes, reviewCount, similarP
 
           {/* Price */}
           <div className="flex items-center gap-3 mb-4">
-            <p className="text-3xl font-semibold text-gray-800">₹{variant?.sellingPrice || "0.00"}</p>
-            {variant?.mrp && <p className="text-gray-400 line-through text-lg">₹{variant.mrp}</p>}
+            <p className="text-3xl font-semibold text-gray-800">₹{product?.sellingPrice || "0.00"}</p>
+            {product?.mrp && <p className="text-gray-400 line-through text-lg">₹{product?.mrp}</p>}
             {product?.discountPercentage && (
               <p className="text-red-500 font-medium">{product.discountPercentage}% OFF</p>
             )}
