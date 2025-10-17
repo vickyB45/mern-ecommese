@@ -5,7 +5,7 @@ import { ThemeProvider } from 'next-themes'
 import React, { useState, useEffect } from 'react'
 
 
-const layout = ({ children }) => {
+const Layout = ({ children }) => {
   const [year, setYear] = useState(2025); // fallback to current year
   useEffect(() => {
     setYear(new Date().getFullYear());
@@ -36,4 +36,4 @@ const layout = ({ children }) => {
   )
 }
 
-export default layout
+export default Layout
