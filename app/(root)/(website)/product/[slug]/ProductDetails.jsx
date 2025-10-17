@@ -377,8 +377,8 @@ const ProductDetails = ({
       </div>
 
       {/* Description & Reviews */}
-      <div className="lg:px-20 px-4 mt-16 pb-20">
-        <h2 className="text-2xl font-semibold mb-4 text-gray-800">
+      <div className="lg:px-20 mt-16 pb-20">
+        <h2 className="text-2xl  px-4 font-semibold mb-4 text-gray-800">
           Description
         </h2>
         <div className="text-gray-600 leading-relaxed mb-6">

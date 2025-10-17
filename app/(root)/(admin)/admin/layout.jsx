@@ -2,10 +2,15 @@ import AppSidebar from '@/components/Aplication/admin/AppSidebar'
 import Topbar from '@/components/Aplication/admin/Topbar'
 import { SidebarProvider } from '@/components/ui/sidebar'
 import { ThemeProvider } from 'next-themes'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 
 const layout = ({ children }) => {
+  const [year, setYear] = useState(2025); // fallback to current year
+  useEffect(() => {
+    setYear(new Date().getFullYear());
+  }, []);
+
   return (
     <ThemeProvider
     attribute="class"
@@ -23,7 +28,7 @@ const layout = ({ children }) => {
             </div>
           </div>
           <div className='border-t w-full h-[40px] flex justify-center items-center bg-gray-50 dark:bg-background text-sm'>
-            © {new Date().getFullYear()} Developed By Vicky. All Rights Reserved
+            © {year} Developed By Vicky. All Rights Reserved
           </div>
         </main>
       </SidebarProvider>

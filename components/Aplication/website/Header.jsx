@@ -93,6 +93,7 @@ const Header = () => {
         {/* Icons */}
         <div className="flex items-center gap-4">
           <IoIosSearch onClick={()=>setShowSearch(!showSearch)} className="text-zinc-500 hover:text-primary cursor-pointer" size={20} />
+          
           <Cart />
 
           {/* Mobile Hamburger */}

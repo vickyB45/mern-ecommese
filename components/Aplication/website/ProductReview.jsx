@@ -25,6 +25,7 @@ import { showToast } from "@/lib/showToast";
 import Link from "next/link";
 import { WEBSITE_LOGIN } from "@/routes/WebsiteRoute";
 import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
+import getTimeAgo from "@/lib/helperFunctions";
 
 const ProductReview = ({ productId }) => {
   const auth = useSelector((store) => store.authStore.auth);
@@ -165,7 +166,7 @@ const ProductReview = ({ productId }) => {
   const maxCount = Math.max(...Object.values(summary.breakdown));
 
   return (
-    <Card className="overflow-hidden transition-all duration-200">
+    <Card className="shadow-none  overflow-hidden transition-all duration-200">
       <CardHeader>
         <h2 className="text-2xl font-semibold mb-4 text-gray-800 border-b pb-3">
           Rating & Reviews
@@ -178,7 +179,7 @@ const ProductReview = ({ productId }) => {
           {/* LEFT SIDE */}
           <div className="w-full md:w-[240px] text-center p-6 bg-white shadow-sm rounded-md">
             <h4 className="text-6xl font-bold text-gray-800 leading-none">
-              {summary.average > 0 ? summary.average : "–"}
+              {summary.average > 0 ? summary.average : "0"}
             </h4>
             <div className="flex justify-center mt-2 mb-1 gap-1 text-yellow-500">
               {[...Array(5)].map((_, i) => (
@@ -381,7 +382,7 @@ const ProductReview = ({ productId }) => {
                     .map((review, index) => (
                       <div
                         key={review._id || index}
-                        className="border border-gray-200 rounded-xl p-6 bg-white shadow-md hover:shadow-lg transition-shadow duration-300"
+                        className="border border-gray-200  p-3 bg-white transition-shadow duration-300"
                       >
                         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
                           <div className="flex-1">
@@ -391,22 +392,18 @@ const ProductReview = ({ productId }) => {
                             <div className="flex items-center gap-2 mt-1 text-gray-500 text-sm">
                               <span>{review?.reviewedBy || "Anonymous"}</span>
                               <span>•</span>
-                              <span>
-                                {new Date(
-                                  review.createdAt
-                                ).toLocaleDateString()}
-                              </span>
+                              <span>{getTimeAgo(review.createdAt)}</span>
                             </div>
                           </div>
-                          <Rating
+                        </div>
+                        <Rating
                             value={review.rating}
                             readOnly
-                            size="medium"
+                            size="small"
                             className="text-yellow-500"
                           />
-                        </div>
                         <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">
-                          {review.review}
+                          {review.review.length > 200 ? review.review.slice(0,200)+"..." : review.review}
                         </p>
                       </div>
                     ))}

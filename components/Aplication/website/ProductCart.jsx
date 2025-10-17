@@ -1,21 +1,27 @@
 import { WEBSITE_PRODUCT_DETAILS } from "@/routes/WebsiteRoute";
 import Link from "next/link";
+import Image from "next/image";
 import React from "react";
 
 const ProductCard = ({ product }) => {
   return (
     <div className="bg-white cursor-pointer border border-gray-200 overflow-hidden transition-all duration-300 max-w-xs mx-auto hover:shadow-md">
-      <Link href={WEBSITE_PRODUCT_DETAILS(product.slug)}>
+      {/* 👇 Disable prefetch for faster runtime navigation */}
+      <Link href={WEBSITE_PRODUCT_DETAILS(product.slug)} prefetch={false}>
         {/* Image Section */}
         <div className="relative">
           <div className="h-[200px] lg:h-[350px] overflow-hidden">
-            <img
-              src={product.media?.[0]?.secure_url}
-              className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+            {/* 👇 Optimized Next.js Image component */}
+            <Image
+              src={product.media?.[0]?.secure_url || "/placeholder.png"}
               alt={product.name}
+              width={400}
+              height={400}
+              className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+              loading="lazy"
+              unoptimized={false}
             />
           </div>
-
 
           {/* ✅ Discount badge (top-right) */}
           {product.discountPercentage && (
