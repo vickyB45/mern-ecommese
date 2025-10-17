@@ -62,14 +62,17 @@ useEffect(() => {
   if (getCouponData && getCouponData?.success) {
     const coupon = getCouponData.data;
 
-    // Format validity date → dd/mm/yy
-    const formattedValidity = coupon.validity
-      ? new Date(coupon.validity).toLocaleDateString("en-GB", {
-          day: "2-digit",
-          month: "2-digit",
-          year: "2-digit",
-        })
-      : "";
+    // Format validity date → YYYY-MM-DD (stable across server/client)
+    let formattedValidity = "";
+    if (coupon.validity) {
+      const d = new Date(coupon.validity);
+      if (!isNaN(d.getTime())) {
+        const y = d.getUTCFullYear();
+        const m = String(d.getUTCMonth() + 1).padStart(2, "0");
+        const day = String(d.getUTCDate()).padStart(2, "0");
+        formattedValidity = `${y}-${m}-${day}`;
+      }
+    }
 
     form.reset({
       _id:coupon._id,

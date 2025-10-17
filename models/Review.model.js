@@ -22,7 +22,7 @@ const reviewSchema = new mongoose.Schema(
             type: String,
             trim: true,
         },
-        comment: {
+        review: {
             type: String,
             trim: true,
         },
