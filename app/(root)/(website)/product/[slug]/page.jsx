@@ -1,3 +1,4 @@
+
 import axios from "axios";
 import React from "react";
 import ProductDetails from "./ProductDetails";
@@ -20,6 +21,8 @@ const ProductPage = async ({ params, searchParams }) => {
     query.toString() ? `${url}?${query.toString()}` : url
   );
 
+  
+
   if (!getProduct.success) {
     return (
       <div className="flex justify-center h-[70vh] items-center py-6">
@@ -28,6 +31,7 @@ const ProductPage = async ({ params, searchParams }) => {
     );
   } else {
     const similarProducts = getProduct?.data?.similarProducts;
+
 
     return (
       <div>

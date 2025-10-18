@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/breadcrumb";
 import {
   WEBSITE_CART,
+  WEBSITE_CHECKOUT,
   WEBSITE_HOME,
   WEBSITE_SHOP,
 } from "@/routes/WebsiteRoute";
@@ -43,9 +44,11 @@ const ProductDetails = ({
   reviewCount,
   similarProducts,
 }) => {
+
+  
   const dispatch = useDispatch();
   const cartStore = useSelector((store) => store.cartStore);
-
+  
   const [isAddedIntoCart, setIsAddedIntoCart] = useState(false);
   const [thumbnails, setThumbnails] = useState([]);
   const [activeImage, setActiveImage] = useState(null);
@@ -77,7 +80,7 @@ const ProductDetails = ({
       setImageLoaded(false); // Wait for main image to load
     }
   }, [product]);
-
+  
   const handleAddToCart = () => {
     const cartProduct = {
       productId: product?._id,
@@ -354,7 +357,7 @@ const ProductDetails = ({
             )}
 
             <button className="flex-1 border border-gray-300 text-gray-700 py-3 rounded-md font-semibold hover:bg-gray-100 transition">
-              Buy Now
+              <Link href={WEBSITE_CHECKOUT}>CheckOut Now</Link>
             </button>
           </div>
 
@@ -381,7 +384,7 @@ const ProductDetails = ({
         <h2 className="text-2xl  px-4 font-semibold mb-4 text-gray-800">
           Description
         </h2>
-        <div className="text-gray-600 leading-relaxed mb-6">
+        <div className="text-gray-600 leading-relaxed px-2 mb-6">
           <ProductDescription description={product?.description} />
         </div>
 

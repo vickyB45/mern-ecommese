@@ -19,6 +19,9 @@ import useWindowSize from "@/hooks/useWindowSize";
 import { useSearchParams } from "next/navigation";
 import ProductCard from "@/components/Aplication/website/ProductCart";
 
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+
 const breadCrumb = {
   title: "Shop",
   links: [
@@ -89,7 +92,6 @@ const MenCollection = () => {
       { threshold: 1 }
     );
 
-
     if (loadMoreRef.current) observer.observe(loadMoreRef.current);
     return () => observer.disconnect();
   }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
@@ -114,7 +116,6 @@ const MenCollection = () => {
               open={isMobileFilterOpen}
               onOpenChange={setIsMobileFilterOpen}
             >
-              
               <SheetContent side="left">
                 <SheetHeader>
                   <SheetTitle className="border-b pb-2">Filter</SheetTitle>
@@ -138,17 +139,29 @@ const MenCollection = () => {
             setIsMobileFilterOpen={setIsMobileFilterOpen}
           />
 
-          {/* ✅ Products Section using your ProductCard */}
+          {/* Products Section */}
           <div className="mt-6 grid grid-cols-2 md:grid-cols-3 gap-4">
             {status === "loading" ? (
-              <p>Loading products...</p>
+              // ✅ Skeleton Loader
+              Array.from({ length: limit }).map((_, index) => (
+                <div
+                  key={index}
+                  className="border p-2 rounded shadow-sm animate-pulse"
+                >
+                  <Skeleton height={150} />
+                  <div className="mt-2">
+                    <Skeleton width={`80%`} height={20} />
+                    <Skeleton width={`50%`} height={20} className="mt-1" />
+                  </div>
+                </div>
+              ))
             ) : status === "error" ? (
               <p className="text-red-500">
                 Error fetching products: {error.message}
               </p>
             ) : products.length > 0 ? (
               products.map((product, index) => (
-                <ProductCard key={ index} product={product} tag="men" />
+                <ProductCard key={index} product={product} tag="men" />
               ))
             ) : (
               <p>No products found.</p>
@@ -158,7 +171,18 @@ const MenCollection = () => {
           {/* Infinite Scroll Trigger */}
           <div ref={loadMoreRef} className="text-center mt-6">
             {isFetchingNextPage
-              ? "Loading more..."
+              ? Array.from({ length: 3 }).map((_, i) => (
+                  <div
+                    key={i}
+                    className="border p-2 rounded shadow-sm animate-pulse mb-2 mx-auto w-3/4"
+                  >
+                    <Skeleton height={150} />
+                    <div className="mt-2">
+                      <Skeleton width={`80%`} height={20} />
+                      <Skeleton width={`50%`} height={20} className="mt-1" />
+                    </div>
+                  </div>
+                ))
               : hasNextPage
               ? "Scroll down to load more"
               : "No more products"}

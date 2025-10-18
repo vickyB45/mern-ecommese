@@ -44,10 +44,10 @@ export const cartReducer = createSlice({
       }
     },
     removeFromCart: (state, action) => {
-      const { productId, variantId } = action.payload;
+      const { productId } = action.payload;
       state.products = state.products.filter(
         (product) =>
-          product.productId !== productId || product.variantId !== variantId
+          product.productId !== productId 
       );
       state.count = state.products.length;
     },
