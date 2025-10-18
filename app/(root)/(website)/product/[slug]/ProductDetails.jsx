@@ -357,7 +357,7 @@ const ProductDetails = ({
             )}
 
             <button className="flex-1 border border-gray-300 text-gray-700 py-3 rounded-md font-semibold hover:bg-gray-100 transition">
-              <Link href={WEBSITE_CHECKOUT}>CheckOut Now</Link>
+              <Link href={WEBSITE_CHECKOUT}>Checkout Now</Link>
             </button>
           </div>
 

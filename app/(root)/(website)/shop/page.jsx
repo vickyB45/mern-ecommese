@@ -33,7 +33,8 @@ const breadCrumb = {
 };
 
 const MenCollection = () => {
-  const searchParams = useSearchParams().toString();
+  const searchParams = useSearchParams();
+  const searchString = searchParams ? searchParams.toString() : "";
 
   const [limit, setLimit] = useState(9);
   const [sorting, setSorting] = useState("default_sorting");
@@ -44,10 +45,10 @@ const MenCollection = () => {
 
   const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-  // ✅ Fetch function for infinite query
+  // Fetch function for infinite query
   const fetchProducts = async ({ pageParam = 0 }) => {
     const res = await fetch(
-      `${baseUrl}/shop?page=${pageParam}&limit=${limit}&sort=${sorting}&${searchParams}`,
+      `${baseUrl}/shop?page=${pageParam}&limit=${limit}&sort=${sorting}&${searchString}`,
       { cache: "no-store" }
     );
 
@@ -62,7 +63,7 @@ const MenCollection = () => {
     };
   };
 
-  // ✅ React Query Infinite Scroll
+  // React Query Infinite Scroll
   const {
     data,
     error,
@@ -71,18 +72,17 @@ const MenCollection = () => {
     isFetchingNextPage,
     status,
   } = useInfiniteQuery({
-    queryKey: ["shop", limit, sorting, searchParams],
+    queryKey: ["shop", limit, sorting, searchString],
     queryFn: fetchProducts,
     initialPageParam: 0,
     getNextPageParam: (lastPage) => lastPage.nextCursor,
   });
 
-  // ✅ Flatten all pages
-  const products = data?.pages.flatMap((page) => page.data) || [];
+  // Flatten pages only if data exists
+  const products = data?.pages?.flatMap((page) => page.data) || [];
 
-  // ✅ Intersection Observer for Infinite Scroll
+  // Intersection Observer for Infinite Scroll
   const loadMoreRef = useRef(null);
-
   useEffect(() => {
     if (!hasNextPage || isFetchingNextPage) return;
     const observer = new IntersectionObserver(
@@ -142,7 +142,7 @@ const MenCollection = () => {
           {/* Products Section */}
           <div className="mt-6 grid grid-cols-2 md:grid-cols-3 gap-4">
             {status === "loading" ? (
-              // ✅ Skeleton Loader
+              // ✅ Skeleton Loader while fetching
               Array.from({ length: limit }).map((_, index) => (
                 <div
                   key={index}
@@ -164,25 +164,42 @@ const MenCollection = () => {
                 <ProductCard key={index} product={product} tag="men" />
               ))
             ) : (
-              <p>No products found.</p>
+              // Only show "No products found" after loading completes
+              Array.from({ length: limit }).map((_, index) => (
+                <div
+                  key={index}
+                  className="border p-2 rounded shadow-sm animate-pulse"
+                >
+                  <Skeleton height={150} />
+                  <div className="mt-2">
+                    <Skeleton width={`80%`} height={20} />
+                    <Skeleton width={`50%`} height={20} className="mt-1" />
+                  </div>
+                </div>
+              ))
             )}
           </div>
 
           {/* Infinite Scroll Trigger */}
           <div ref={loadMoreRef} className="text-center mt-6">
             {isFetchingNextPage
-              ? Array.from({ length: 3 }).map((_, i) => (
-                  <div
-                    key={i}
-                    className="border p-2 rounded shadow-sm animate-pulse mb-2 mx-auto w-3/4"
-                  >
-                    <Skeleton height={150} />
-                    <div className="mt-2">
-                      <Skeleton width={`80%`} height={20} />
-                      <Skeleton width={`50%`} height={20} className="mt-1" />
-                    </div>
+              ? 
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {
+                  Array.from({ length: limit }).map((_, index) => (
+                <div
+                  key={index}
+                  className="border p-2 rounded shadow-sm animate-pulse"
+                >
+                  <Skeleton height={150} />
+                  <div className="mt-2">
+                    <Skeleton width={`80%`} height={20} />
+                    <Skeleton width={`50%`} height={20} className="mt-1" />
                   </div>
-                ))
+                </div>
+              ))
+                }
+              </div>
               : hasNextPage
               ? "Scroll down to load more"
               : "No more products"}

@@ -15,7 +15,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { removeFromCart } from "@/store/reducer/cartReducer";
 import Link from "next/link";
-import { WEBSITE_CHECKOUT } from "@/routes/WebsiteRoute";
+import { WEBSITE_CART, WEBSITE_CHECKOUT } from "@/routes/WebsiteRoute";
 // import { removeFromCart } from "@/redux/slices/cartSlice"; // 🔹 uncomment when remove slice is ready
 
 const Cart = () => {
@@ -38,7 +38,7 @@ const Cart = () => {
   const totalDiscount = totalMRP - totalSelling;
 
   return (
-    <Sheet>
+    <Sheet open={open} onOpenChange={setOpen}>
       {/* 🛒 Cart Icon */}
       <SheetTrigger className="relative">
         <BsCart2
@@ -160,11 +160,11 @@ const Cart = () => {
                 Total: ₹{totalSelling.toFixed(2)}
               </span>
             </div>
-            <div className="flex justify-between items-center mt-6">
-              <Button className=" hover:bg-zinc-400 text-primary border rounded-lg bg-transparent ">
-                View Cart
+            <div  className="flex justify-between items-center mt-6">
+              <Button onClick={()=>setOpen(false)} className=" hover:bg-black/10 text-primary border rounded-lg bg-transparent ">
+               <Link href={WEBSITE_CART} > View Cart</Link>
               </Button>
-              <Button className="bg-primary text-white hover:bg-primary/90">
+              <Button onClick={()=>setOpen(false)} className="bg-primary text-white hover:bg-primary/90">
                 <Link href={WEBSITE_CHECKOUT}>Checkout</Link>
               </Button>
             </div>
