@@ -1,3 +1,4 @@
+'use client'
 import AppSidebar from '@/components/Aplication/admin/AppSidebar'
 import Topbar from '@/components/Aplication/admin/Topbar'
 import { SidebarProvider } from '@/components/ui/sidebar'
@@ -5,7 +6,7 @@ import { ThemeProvider } from 'next-themes'
 import React, { useState, useEffect } from 'react'
 
 
-const Layout = ({ children }) => {
+const layout = ({ children }) => {
   const [year, setYear] = useState(2025); // fallback to current year
   useEffect(() => {
     setYear(new Date().getFullYear());
@@ -36,4 +37,4 @@ const Layout = ({ children }) => {
   )
 }
 
-export default Layout
+export default layout
