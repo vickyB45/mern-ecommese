@@ -1,6 +1,7 @@
 "use client";
 import { WEBSITE_HOME } from "@/routes/WebsiteRoute";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 // ✅ Quick Links Data
 const quickLinks = [
@@ -46,7 +47,7 @@ const Footer = () => {
                 transition={{ duration: 0.2 }}
                 className="text-gray-600 hover:text-black transition"
               >
-                <a href={item.href}>{item.name}</a>
+                <Link href={item.href}>{item.name}</Link>
               </motion.li>
             ))}
           </ul>
@@ -63,7 +64,7 @@ const Footer = () => {
                 transition={{ duration: 0.2 }}
                 className="text-gray-600 hover:text-black transition"
               >
-                <a href={item.href}>{item.name}</a>
+                <Link href={item.href}>{item.name}</Link>
               </motion.li>
             ))}
           </ul>

@@ -2,6 +2,7 @@
 import WebsiteBreadcrumb from "@/components/Aplication/website/WebsiteBreadcrumb";
 import {
   WEBSITE_CART,
+  WEBSITE_CHECKOUT,
   WEBSITE_PRODUCT_DETAILS,
   WEBSITE_SHOP,
 } from "@/routes/WebsiteRoute";
@@ -97,6 +98,15 @@ const CartPage = () => {
                   </Link>
 
                   <div className="flex flex-wrap gap-2 mt-2 items-center">
+                      <span className="bg-gray-100 text-gray-700 px-2 py-1 rounded-full text-sm">
+                     Size: {item.size}
+                    </span>
+                      <span className="bg-gray-100 text-gray-700 px-2 py-1 rounded-full text-sm">
+                     Color: {item.color}
+                    </span>
+                    
+                  </div>
+                  <div className="flex flex-wrap gap-2 mt-2 items-center">
                     <span className="bg-gray-100 text-gray-700 px-2 py-1 rounded-full text-sm">
                       ₹{item.sellingPrice}
                     </span>
@@ -182,7 +192,9 @@ const CartPage = () => {
               <span>₹{subtotal}</span>
             </div>
 
-            <Button className="w-full py-3 text-lg">Proceed to Checkout</Button>
+            <Button  className="w-full py-3 text-lg">
+              <Link href={WEBSITE_CHECKOUT}>Proceed to Checkout</Link>
+            </Button>
           </div>
         </div>
       )}

@@ -25,7 +25,8 @@ const MediaModel = ({
 
   const fetchMedia = async (page) => {
     const { data: response } = await axios.get(
-      `/api/media?page=${page}&&limit=18&&deleteType=SD`
+      `/api/media?page=${page}&&limit=18&&deleteType=SD`,
+      { withCredentials: true }
     );
     return response;
   };

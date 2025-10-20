@@ -37,7 +37,7 @@ const Header = () => {
         <Link href={WEBSITE_HOME}>
           <Image
             className="lg:w-26 w-22"
-            src="/assets/images/logo-black.png"
+            src="https://res.cloudinary.com/dwpp4trl9/image/upload/v1760965257/uploads/wtvtjulk8nwvbettirlz.png"
             width={383}
             height={146}
             alt="logo"

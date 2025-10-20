@@ -53,7 +53,7 @@ const Cart = () => {
       </SheetTrigger>
 
       {/* 🛍️ Cart Drawer */}
-      <SheetContent className="flex flex-col h-full">
+      <SheetContent className="flex flex-col h-full sm:w-[500px] w-full">
         <SheetHeader>
           <SheetTitle>My Cart</SheetTitle>
           <SheetDescription>Your shopping cart summary</SheetDescription>

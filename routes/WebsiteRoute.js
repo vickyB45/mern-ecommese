@@ -13,9 +13,7 @@ export const WEBSITE_FOOTWARES = '/footware'
 export const WEBSITE_ACCESSORIES = '/accessories'
 
 export const WEBSITE_SHOP = '/shop'
-
 export const WEBSITE_CART = '/cart'
-
 export const WEBSITE_CHECKOUT = '/checkout'
 
 

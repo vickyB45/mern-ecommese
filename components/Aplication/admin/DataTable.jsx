@@ -70,7 +70,7 @@ const DataTable = ({
         const rowData = selectedRows.map((row) => row.original);
         csv = generateCsv(csvConfig)(rowData);
       } else {
-        const { data: response } = await axios.get(exportEndpoint);
+  const { data: response } = await axios.get(exportEndpoint, { withCredentials: true });
         if (!response.success) throw new Error(response.message);
         csv = generateCsv(csvConfig)(response.data || []);
       }
@@ -87,7 +87,15 @@ const DataTable = ({
   const queryResult = useQuery({
     queryKey: [queryKey, { columnFilters, globleFilter, pagination, sorting }],
     queryFn: async () => {
-      const url = new URL(fetchUrl, process.env.NEXT_PUBLIC_BASE_URL);
+      // Build URL using NEXT_PUBLIC_BASE_URL when available, otherwise use relative path
+      let url;
+      try {
+        const base = process.env.NEXT_PUBLIC_BASE_URL || window.location.origin;
+        url = new URL(fetchUrl, base);
+      } catch (e) {
+        // Fallback: use fetchUrl as-is (relative path)
+        url = new URL(fetchUrl, window.location.origin);
+      }
 
       // ✅ FIX start / size
       url.searchParams.set("start", pagination.pageIndex * pagination.pageSize);
@@ -97,7 +105,7 @@ const DataTable = ({
       url.searchParams.set("sorting", JSON.stringify(sorting ?? []));
       url.searchParams.set("deleteType", deleteType);
 
-      const { data: response } = await axios.get(url.href);
+  const { data: response } = await axios.get(url.href, { withCredentials: true });
       return response;
     },
     placeholderData: keepPreviousData,
