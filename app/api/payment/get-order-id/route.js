@@ -19,36 +19,29 @@ export async function POST(req) {
 
     const { amount } = validate.data;
 
-    // Razorpay instance
-      // Validate environment variables (do not log secrets)
-    const keyId =  process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID;
-    const keySecret = process.env.RAZORPAY_KEY_SECRET  || "9SJR3etujqfsno6VLpLw8xAt"
-    console.log(keyId,keySecret)
-      if (!keyId || !keySecret) {
-        console.error("Razorpay keys missing. keyId present:", Boolean(keyId));
-        return response(false, 500, "Payment gateway configuration missing on server");
-      }
+    // Razorpay keys
+    const keyId = process.env.RAZORPAY_KEY_ID || process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID;
+    const keySecret = process.env.RAZORPAY_KEY_SECRET;
 
-      const razInstance = new Razorpay({ key_id: keyId, key_secret: keySecret });
+    if (!keyId || !keySecret) {
+      console.error("Razorpay keys missing");
+      return response(false, 500, "Payment gateway configuration missing on server");
+    }
 
-      const razOption = {
-        amount: Number(amount) * 100, // in paise
-        currency: "INR",
-      };
+    const razInstance = new Razorpay({ key_id: keyId, key_secret: keySecret });
 
-      try {
-        const orderDetail = await razInstance.orders.create(razOption);
-        if (!orderDetail || !orderDetail.id) {
-          console.error("Razorpay returned invalid order detail:", orderDetail);
-          return response(false, 500, "Failed to create order with payment gateway");
-        }
+    const razOption = {
+      amount: Number(amount) * 100, // in paise
+      currency: "INR",
+    };
 
-        // ✅ Return as object for frontend safety
-        return response(true, 200, "Order Id Generated", { order_id: orderDetail.id });
-      } catch (razErr) {
-        console.error("Razorpay orders.create error:", razErr && razErr.message ? razErr.message : razErr);
-        return response(false, 500, "Payment gateway error: " + (razErr?.message || "Unknown error"));
-      }
+    const orderDetail = await razInstance.orders.create(razOption);
+
+    if (!orderDetail || !orderDetail.id) {
+      return response(false, 500, "Failed to create order with payment gateway");
+    }
+
+    return response(true, 200, "Order Id Generated", { order_id: orderDetail.id });
   } catch (error) {
     console.error("Backend /get-order-id error:", error);
     return catchError(error);

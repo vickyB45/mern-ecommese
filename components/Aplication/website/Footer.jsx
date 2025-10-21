@@ -8,7 +8,7 @@ const quickLinks = [
   { name: "Home", href: WEBSITE_HOME },
   { name: "About Us", href: "/about" },
   { name: "Contact Us", href: "/contact" },
-  { name: "My Account", href: "/account" },
+  { name: "My Account", href: "/my-account" },
 ];
 
 // ✅ Information Links Data
@@ -16,7 +16,6 @@ const infoLinks = [
   { name: "Terms & Condition", href: "/terms" },
   { name: "Privacy Policy", href: "/privacy" },
   { name: "Shipping Policy", href: "/shipping" },
-  { name: "Cancellation Policy", href: "/cancellation" },
   { name: "Refund & Return Policy", href: "/refund" },
 ];
 
