@@ -71,7 +71,7 @@ export async function POST(req) {
     // Save order
     // -----------------------------
    const newOrder = await orderModel.create({
-  ...(validatedData.userId && { user: validatedData.userId }), // only if provided
+    user:validatedData.userId,
   name: validatedData.name,        // frontend se required
   email: validatedData.email,      // frontend se required
   phone: validatedData.phone,

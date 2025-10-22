@@ -23,6 +23,7 @@ import Search from "./Search";
 
 const Header = () => {
   const auth = useSelector((store) => store.authStore.auth);
+  console.log(auth)
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
@@ -112,7 +113,7 @@ const Header = () => {
           ) : (
             <Link href={USER_DASHBOARD}>
               <Avatar>
-                <AvatarImage src={auth?.avatar?.url || "/assets/images/user.png"} />
+                <AvatarImage src={auth?.avatar || "/assets/images/user.png"} />
               </Avatar>
             </Link>
           )}

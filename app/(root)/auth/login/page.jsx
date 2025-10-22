@@ -103,7 +103,7 @@ const searchParams = useSearchParams()
     try {
       setOtpVerificationLoading(true);
       const { data: otpResponse } = await axios.post("/api/auth/verify-otp", values);
-
+    
       if (!otpResponse.success) {
         showToast({ type: "error", message: otpResponse.message });
         return;

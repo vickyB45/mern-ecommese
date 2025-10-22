@@ -32,6 +32,10 @@ export const ADMIN_COUPON_SHOW="/admin/coupon"
 export const ADMIN_COUPON_EDIT=(id)=> id ? `/admin/coupon/edit/${id}`:""
 
 
+// # order routes
+export const ADMIN_ORDER_SHOW="/admin/orders"
+export const ADMIN_ORDER_DETAILS=(orderId)=> orderId ? `/admin/orders/details/${orderId}`:""
+
 
 // # Costomer  Routes
 export const ADMIN_COSTOMERS_SHOW="/admin/costomers"

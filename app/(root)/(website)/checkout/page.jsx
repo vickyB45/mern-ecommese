@@ -70,10 +70,9 @@ const CheckoutPage = () => {
       city: "",
       state: "",
       pincode: "",
-      userId: auth?._id || "",
+      userId: auth?.auth?._id,
     },
   });
-
   // Cart verification
   const verifyCart = async () => {
     try {
@@ -203,7 +202,7 @@ const CheckoutPage = () => {
               state: data.state,
               city: data.city,
               pincode: data.pincode,
-              userId: data.userId,
+              userId: auth?.auth?._id,
               products,
               subTotal: subtotal,
               discount,
