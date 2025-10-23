@@ -32,8 +32,17 @@ const Footer = () => {
         {/* About Us */}
         <div>
           <h2 className="text-xl font-bold mb-4 text-black">About Us</h2>
-          <p className="text-gray-600 leading-relaxed">
-            Welcome to our store! We are passionate about delivering the latest fashion and quality products to our customers. Our goal is to make shopping easy, enjoyable, and affordable for everyone. Discover new styles, timeless classics, and a seamless shopping experience with us.
+          <p className="text-gray-600 leading-relaxed dark:text-gray-300">
+            Welcome to{" "}
+            <span className="font-semibold text-gray-800 dark:text-white">
+              Om Enterprises
+            </span>{" "}
+            — where style meets simplicity. We’re passionate about bringing you
+            the latest trends and premium-quality products that elevate your
+            everyday look. At Om Enterprises, we believe fashion should be
+            effortless, affordable, and inspiring. Explore our exclusive
+            collections, discover new favorites, and enjoy a seamless shopping
+            experience designed just for you.
           </p>
         </div>
         <div>
@@ -74,7 +83,7 @@ const Footer = () => {
           <h2 className="text-xl font-bold mb-4 text-black">Contact Us</h2>
           <ul className="space-y-2 text-gray-600">
             <li>
-              <span className="font-medium">Phone:</span> +91 9389897294
+              <span className="font-medium">Phone:</span> +91 70041 93553
             </li>
             <li>
               <span className="font-medium">Email:</span>{" "}
@@ -82,13 +91,13 @@ const Footer = () => {
                 href="mailto:info@flairrfabric.com"
                 className="hover:text-black transition"
               >
-                info@example.com
+                Oment555@rediffmail.com{" "}
               </a>
             </li>
             <li>
-              E-34, Nehru Ground, First floor,
+              Bff.02 signature global the millennia 1 Sect 37 D
               <br />
-              Faridabad, 121001
+              gurgaon, haryana 122001
             </li>
           </ul>
         </div>
@@ -103,8 +112,8 @@ const Footer = () => {
         viewport={{ once: true }}
       >
         Copyright © 2025{" "}
-        <span className="text-black font-medium">Vicky bisht</span> — All
-        rights reserved.
+        <span className="text-black font-medium">Vicky bisht</span> — All rights
+        reserved.
       </motion.div>
     </footer>
   );
