@@ -5,6 +5,7 @@ import WebsiteBreadcrumb from "@/components/Aplication/website/WebsiteBreadcrumb
 import {
   WEBSITE_CART,
   WEBSITE_CHECKOUT,
+  WEBSITE_LOGIN,
   WEBSITE_ORDER_DETAILS,
   WEBSITE_SHOP,
 } from "@/routes/WebsiteRoute";
@@ -48,6 +49,7 @@ const CheckoutPage = () => {
   const cart = useSelector((store) => store.cartStore);
   const auth = useSelector((store) => store.authStore);
 
+
   // State
   const [verifyCartData, setVerifyCartData] = useState([]);
   const [cartVerified, setCartVerified] = useState(false);
@@ -73,6 +75,25 @@ const CheckoutPage = () => {
       userId: auth?.auth?._id,
     },
   });
+ if (!auth?.auth) {
+    return (
+      <div className="">
+        <WebsiteBreadcrumb props={breadCrumb} />
+        <div className="bg-white p-10 md:py-30 py-8 text-center">
+          <h1 className="text-2xl font-semibold mb-2">Login Required</h1>
+          <p className="text-gray-500 mb-4">
+            You must be logged in to access the checkout page. 
+            Please login to continue with your order.
+          </p>
+          <Link href={WEBSITE_LOGIN}>
+            <Button className="px-6 py-3">Go to Login</Button>
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+
   // Cart verification
   const verifyCart = async () => {
     try {

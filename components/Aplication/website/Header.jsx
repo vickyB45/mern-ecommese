@@ -20,10 +20,10 @@ import { useSelector } from "react-redux";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { LuMenu, LuX } from "react-icons/lu";
 import Search from "./Search";
+import { ADMIN_DASHBOARD } from "@/routes/AdminPannelRoute";
 
 const Header = () => {
   const auth = useSelector((store) => store.authStore.auth);
-  console.log(auth)
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
@@ -111,7 +111,7 @@ const Header = () => {
               <MdAccountCircle className="text-zinc-500 hover:text-primary cursor-pointer" size={25} />
             </Link>
           ) : (
-            <Link href={USER_DASHBOARD}>
+            <Link href={auth.auth?.role === "user" ? USER_DASHBOARD : ADMIN_DASHBOARD}>
               <Avatar>
                 <AvatarImage src={auth?.avatar || "/assets/images/user.png"} />
               </Avatar>

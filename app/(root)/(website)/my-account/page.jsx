@@ -25,7 +25,7 @@ const MyAccount = () => {
       <UserPanelLayout>
         <div className="shadow rounded bg-white">
           {/* Header */}
-          <div className="p-6 text-2xl font-semibold border-b">Dashboard</div>
+          <div className="md:p-6 text-2xl font-semibold border-b">Dashboard</div>
 
           {/* Dashboard Cards */}
           <div className="p-6 space-y-6">

@@ -5,7 +5,7 @@ import React from "react";
 
 const Layout = ({ children }) => {
   return (
-    <div>
+    <div className="w-full overflow-x-hidden">
       <CursorDot />   {/* <- Cursor dot globally */}
       <Header />
       <main>{children}</main>

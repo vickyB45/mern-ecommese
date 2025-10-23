@@ -7,10 +7,15 @@ export async function middleware(req) {
   const pathname = req.nextUrl.pathname;
 
   // Headers for CORS
-  const headers = new Headers();
-  headers.set("Access-Control-Allow-Origin", "https://www.oment.store"); // production me "*" ki jagah frontend domain
-  headers.set("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-  headers.set("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  const allowedOrigin = process.env.NODE_ENV === "production" 
+  ? "https://www.oment.store" 
+  : "http://localhost:3000";
+
+const headers = new Headers();
+headers.set("Access-Control-Allow-Origin", allowedOrigin);
+headers.set("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+headers.set("Access-Control-Allow-Headers", "Content-Type, Authorization");
+
 
   // Handle preflight requests (OPTIONS)
   if (req.method === "OPTIONS") {
