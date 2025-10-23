@@ -1,6 +1,7 @@
 import { isAuthenticated } from "@/lib/authentication";
 import { connectDB } from "@/lib/databaseConnection";
 import { catchError, response } from "@/lib/helperFunctions";
+import ReviewModel from "@/models/Review.model";
 import { NextResponse } from "next/server";
 
 export async function GET(req) {
@@ -75,62 +76,54 @@ export async function GET(req) {
     }
 
     // Aggregation pipeline
-    const aggregatePipeline = [
-      {
-        $lookup: {
-          from: "products",
-          localField: "product",
-          foreignField: "_id",
-          as: "productData"}
-        },
-        {
-          $unwind: {
-            path: "$productData",
-            preserveNullAndEmptyArrays: true
-          }
-        },
-        {
-          $lookup: {
-            from: "users",
-            localField: "user",
-            foreignField: "_id",
-            as: "userData"
-          }
-        },
-        {
-          $unwind: {
-            path: "$userData",
-            preserveNullAndEmptyArrays: true
-          }
-        },
-     
-      { $match: matchQuery },
-      { $sort: sortQuery },
-      { $skip: start },
-      { $limit: size },
-      {
-        $project: {
-          _id: 1,
-          product:"$productData.name",
-          user:"$userData.name",
-          rating:1,
-          review:1,
-          title:1,
-          createdAt: 1,
-          updatedAt: 1,
-          deletedAt: 1
-        }
-      }
-    ];
+const aggregatePipeline = [
+  {
+    $lookup: {
+      from: "products",
+      localField: "product",
+      foreignField: "_id",
+      as: "productData"
+    }
+  },
+  {
+    $unwind: {
+      path: "$productData",
+      preserveNullAndEmptyArrays: true
+    }
+  },
+  {
+    $lookup: {
+      from: "users",
+      localField: "user",
+      foreignField: "_id",
+      as: "userData"
+    }
+  },
+  {
+    $unwind: {
+      path: "$userData",
+      preserveNullAndEmptyArrays: true
+    }
+  },
+  { $match: matchQuery },
+  { $sort: sortQuery },
+  { $skip: start },
+  { $limit: size },
+  // ✅ Return the whole document
+  {
+    $replaceRoot: { newRoot: { $mergeObjects: ["$$ROOT", "$productData", "$userData"] } }
+  }
+];
 
-    const getReview = await userModel.aggregate(aggregatePipeline);
+
+    const getReview = await ReviewModel.aggregate(aggregatePipeline);
 
     // Total count using same matchQuery (without skip/limit)
     const totalCountPipeline = [
       { $match: matchQuery },
       { $count: "total" }
     ];
-    const totalCountAgg = await userModel.aggregate(totalCountPipeline);
+    const totalCountAgg = await ReviewModel.aggregate(totalCountPipeline);
     const totalRowCount = totalCountAgg[0]?.total || 0;
 
     return NextResponse.json({
@@ -138,6 +131,7 @@ export async function GET(req) {
       data: getReview || [],
       meta: { totalRowCount }
     });
+
 
   } catch (error) {
     console.error("Error in GET /product:", error);

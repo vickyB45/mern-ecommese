@@ -1,3 +1,4 @@
+import { isAuthenticated } from "@/lib/authentication";
 import { connectDB } from "@/lib/databaseConnection";
 import { catchError, response } from "@/lib/helperFunctions";
 import CouponModel from "@/models/coupon.model";
@@ -6,6 +7,11 @@ export async function POST(req) {
   try {
     await connectDB();
 
+    const auth = await isAuthenticated("user");
+           if (!auth) {
+             return response(false, 403, "Unauthorized, Login first");
+           }
+       
     const { code, subtotal } = await req.json();
 
     if (!code || subtotal === undefined) {

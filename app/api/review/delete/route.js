@@ -42,7 +42,7 @@ export async function PUT(req) {
   }
 }
 
-// 🔴 DELETE — Permanent delete
+//  DELETE — Permanent delete
 export async function DELETE(req) {
   try {
     const auth = await isAuthenticated("admin");

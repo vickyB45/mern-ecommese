@@ -9,6 +9,7 @@ import { OrderOverView } from './OrderOverView'
 import { OrderStatus } from './OrderStatus'
 import LatestOrder from './LatestOrder'
 import LatestReview from './LatestReview'
+import { ADMIN_ORDER_SHOW, ADMIN_REVIEW_SHOW } from '@/routes/AdminPannelRoute'
 
 const AdminDashboard = () => {
   return (
@@ -22,7 +23,7 @@ const AdminDashboard = () => {
               <div className='flex justify-between items-center'>
                 <span className='text-lg'>Order Overview</span>
                 <Button type="button">
-                  <Link href={''}>
+                  <Link href={ADMIN_ORDER_SHOW}>
                     View All
                   </Link>
                 </Button>
@@ -37,7 +38,7 @@ const AdminDashboard = () => {
               <div className='flex justify-between items-center'>
                 <span className=''>Order Status</span>
                 <Button type="button">
-                  <Link href={''}>
+                  <Link href={ADMIN_ORDER_SHOW}>
                     View All
                   </Link>
                 </Button>
@@ -50,13 +51,13 @@ const AdminDashboard = () => {
       </div>
       
 
-      <div className=' mt-4 md:mt-10 flex lg:flex-nowrap flex-wrap gap-8'>
+      <div className=' mt-4 md:mt-10 flex lg:flex-nowrap flex-wrap gap-4'>
         <Card  className="rounded-lg lg:w-[70%] w-full p-0 block">
             <CardHeader className="py-3 border-b-2">
               <div className='flex justify-between items-center'>
                 <span className='text-lg'>Latest Order</span>
                 <Button type="button">
-                  <Link href={''}>
+                  <Link href={ADMIN_ORDER_SHOW}>
                     View All
                   </Link>
                 </Button>
@@ -71,7 +72,7 @@ const AdminDashboard = () => {
               <div className='flex justify-between items-center'>
                 <span className=''>Latest Review</span>
                 <Button type="button">
-                  <Link href={''}>
+                  <Link href={ADMIN_REVIEW_SHOW}>
                     View All
                   </Link>
                 </Button>
