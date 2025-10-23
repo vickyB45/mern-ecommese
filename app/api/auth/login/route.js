@@ -41,7 +41,7 @@ if(!getUser.isEmailVarified){
           .sign(secret);
     
         // ✅ 6. Send verification email
-        const verifyLink = `${process.env.NEXT_PUBLIC_BASE_URL}/auth/verify-email/${token}`;
+        const verifyLink = `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/verify-email/${token}`;
         await sendMail(
           "Email Verification request from Developer Vicky",
           email,

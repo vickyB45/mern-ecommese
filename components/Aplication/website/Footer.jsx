@@ -112,7 +112,7 @@ const Footer = () => {
         viewport={{ once: true }}
       >
         Copyright © 2025{" "}
-        <span className="text-black font-medium">Vicky bisht</span> — All rights
+        <span className="text-black font-medium">OM ENTERPRISES</span> — All rights
         reserved.
       </motion.div>
     </footer>

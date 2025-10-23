@@ -11,6 +11,7 @@ export async function POST(req) {
     // ✅ Correct way to read token from body
     const { token } = await req.json();
 
+    
     if (!token) {
       return response(false, 400, "Missing token.");
     }

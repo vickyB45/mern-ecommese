@@ -1,7 +1,6 @@
 import Link from "next/link";
-import React from "react";
-import { IoIosArrowRoundForward } from "react-icons/io";
 import ProductCard from "./ProductCart";
+import { IoIosArrowRoundForward } from "react-icons/io";
 
 const FeaturedProduct = async ({ category, title, tag }) => {
   const collection = encodeURIComponent(category);
@@ -10,7 +9,7 @@ const FeaturedProduct = async ({ category, title, tag }) => {
   try {
     const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
     const res = await fetch(`${baseUrl}/product/get-featured-product?category=${collection}`, {
-      cache: "no-store", // avoid caching on server
+      cache: "no-store",
     });
     if (res.ok) {
       productData = await res.json();
@@ -20,7 +19,7 @@ const FeaturedProduct = async ({ category, title, tag }) => {
   }
 
   if (!productData || !productData.data?.length) {
-    return null; // or fallback UI
+    return <p className="text-center py-4">No products found</p>;
   }
 
   return (
@@ -29,7 +28,7 @@ const FeaturedProduct = async ({ category, title, tag }) => {
         <h2 className="text-2xl font-semibold sm:text-4xl">{title}</h2>
         <Link
           className="flex justify-center items-center underline hover:text-primary"
-          href=""
+          href={`/products?category=${collection}`} // ✅ fixed
         >
           View All
           <IoIosArrowRoundForward />

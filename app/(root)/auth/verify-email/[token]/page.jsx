@@ -1,22 +1,26 @@
 "use client";
-import { Card, CardContent } from '@/components/ui/card'
-import axios from 'axios'
-import { useEffect, useState } from 'react'
-import verifiedImg from "@/public/assets/images/verified.gif"
-import verificationFaildImg from "@/public/assets/images/verification-failed.gif"
-import Image from 'next/image'
-import { Button } from '@/components/ui/button'
-import Link from 'next/link'
-import { WEBSITE_HOME } from '@/routes/WebsiteRoute'
 
-const EmailVerification = async ({ params }) => {
-  const { token } = await params;
+import { Card, CardContent } from "@/components/ui/card";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import verifiedImg from "@/public/assets/images/verified.gif";
+import verificationFaildImg from "@/public/assets/images/verification-failed.gif";
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { WEBSITE_HOME } from "@/routes/WebsiteRoute";
+import { useParams } from "next/navigation"; // ✅ import this
+
+const EmailVerification = () => {
+  const { token } = useParams(); // ✅ Correct way to get params in Next.js App Router
   const [status, setStatus] = useState("loading"); // "loading" | "success" | "error"
+
+  
 
   useEffect(() => {
     const verify = async () => {
       try {
-        const { data: verificationResponse } = await axios.post('/api/auth/verify-email', { token });
+        const { data: verificationResponse } = await axios.post("/api/auth/verify-email", { token });
         if (verificationResponse.success) {
           setStatus("success");
         } else {
@@ -36,7 +40,9 @@ const EmailVerification = async ({ params }) => {
       <CardContent>
         {status === "loading" && (
           <div className="text-center">
-            <h1 className="text-2xl font-bold my-4 text-blue-500">Please wait, verifying your email...</h1>
+            <h1 className="text-2xl font-bold my-4 text-blue-500">
+              Please wait, verifying your email...
+            </h1>
           </div>
         )}
 
@@ -61,7 +67,7 @@ const EmailVerification = async ({ params }) => {
         )}
       </CardContent>
     </Card>
-  )
-}
+  );
+};
 
 export default EmailVerification;
